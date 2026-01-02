@@ -25,7 +25,11 @@
             --anime-color: #ff4081;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -38,14 +42,19 @@
             overflow-x: hidden;
             
             /* SAKURA BACKGROUND */
-            background: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(255, 105, 180, 0.2)),
+                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
+            position: relative;
         }
 
         /* --- SAO LINK START ANIMATION CSS --- */
         #intro-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
             background: #000;
             z-index: 9999;
             display: flex;
@@ -66,7 +75,8 @@
             border-bottom: 4px solid #0984e3;
             box-shadow: 0 0 20px #00d2d3, inset 0 0 20px #00d2d3;
             opacity: 0;
-            top: 50%; left: 50%;
+            top: 50%; 
+            left: 50%;
             transform: translate(-50%, -50%) scale(0.1);
             pointer-events: none;
         }
@@ -77,9 +87,17 @@
         }
 
         @keyframes ringZoom {
-            0% { transform: translate(-50%, -50%) scale(0.1) rotate(0deg); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(4) rotate(180deg); opacity: 0; }
+            0% { 
+                transform: translate(-50%, -50%) scale(0.1) rotate(0deg); 
+                opacity: 0; 
+            }
+            20% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(4) rotate(180deg); 
+                opacity: 0; 
+            }
         }
 
         /* Interaction Layer */
@@ -111,6 +129,7 @@
             cursor: pointer;
             transition: transform 0.2s, text-shadow 0.2s;
             animation: pulseText 2s infinite;
+            padding: 10px 30px;
         }
 
         .link-start-btn:hover {
@@ -130,7 +149,10 @@
         /* The Flash Bang */
         .white-flash {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
             background: white;
             opacity: 0;
             pointer-events: none;
@@ -143,7 +165,7 @@
 
         @keyframes flashBang {
             0% { opacity: 0; }
-            40% { opacity: 1; } /* Flash peaks at sync point */
+            40% { opacity: 1; }
             100% { opacity: 0; }
         }
 
@@ -153,19 +175,24 @@
             pointer-events: none;
         }
 
-        .hidden { display: none; }
+        .hidden { 
+            display: none; 
+        }
 
         /* --- END INTRO CSS --- */
-
 
         /* SAKURA PETAL ANIMATION LAYER */
         .sakura-layer {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
         }
+        
         .petal {
             position: absolute;
             background: #ffc1e3;
@@ -174,16 +201,25 @@
             opacity: 0.9;
             box-shadow: 0 0 5px rgba(255, 182, 193, 0.5);
         }
+        
         @keyframes fall {
-            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+            0% { 
+                transform: translateY(-10vh) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(110vh) translateX(100px) rotate(360deg); 
+                opacity: 0; 
+            }
         }
 
         /* MAIN WRAPPER */
         .main-wrapper {
             width: 100%;
-            max-width: 1000px; /* Diperbesar sedikit untuk konten tambahan */
+            max-width: 1000px;
             z-index: 10;
             text-align: center;
             animation: floatPage 5s ease-in-out infinite;
@@ -206,26 +242,63 @@
         }
 
         /* HEADER */
-        .profile-header { margin-bottom: 30px; }
+        .profile-header { 
+            margin-bottom: 30px; 
+        }
 
         .avatar-container {
-            width: 160px; height: 160px; margin: 0 auto 15px; position: relative;
+            width: 160px; 
+            height: 160px; 
+            margin: 0 auto 15px; 
+            position: relative;
         }
+        
         .avatar {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            object-fit: cover;
             border: 5px solid rgba(255,255,255,0.9);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            background-image: url('https://files.catbox.moe/l0dd2k.jpg');
-            background-color: white; background-size: cover;
+            background-image: url('https://raw.githubusercontent.com/iyannsysu/foto-lah/refs/heads/main/d2796e5e04839544fee5875b0bf41f74.jpg');
+            background-color: white; 
+            background-size: cover;
             transition: transform 0.4s;
         }
-        .avatar:hover { transform: scale(1.1) rotate(5deg); }
+        
+        .avatar:hover { 
+            transform: scale(1.1) rotate(5deg); 
+        }
 
-        h1 { font-family: 'Fredoka', sans-serif; font-size: 3.5rem; margin-bottom: 5px; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
-        .japanese-name { font-size: 1.2rem; color: #fff; letter-spacing: 6px; margin-bottom: 15px; font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
-        .tagline { display: inline-block; background: rgba(255, 255, 255, 0.8); padding: 8px 25px; border-radius: 50px; font-size: 0.95rem; color: var(--text-highlight); font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { 
+            font-family: 'Fredoka', sans-serif; 
+            font-size: 3.5rem; 
+            margin-bottom: 5px; 
+            color: #fff; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3); 
+        }
+        
+        .japanese-name { 
+            font-size: 1.2rem; 
+            color: #fff; 
+            letter-spacing: 6px; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3); 
+        }
+        
+        .tagline { 
+            display: inline-block; 
+            background: rgba(255, 255, 255, 0.8); 
+            padding: 8px 25px; 
+            border-radius: 50px; 
+            font-size: 0.95rem; 
+            color: var(--text-highlight); 
+            font-weight: 700; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        }
 
-        /* GRID CARDS - Diubah untuk 3 kolom */
+        /* GRID CARDS */
         .cards-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -234,46 +307,96 @@
             text-align: left; 
         }
 
-        /* Kartu lebar ganda untuk website anime */
+        /* Kartu lebar untuk website anime */
         .card-wide {
             grid-column: span 2;
         }
 
         .glass-card {
-            background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 2px solid var(--glass-border); border-radius: 24px; padding: 25px;
-            transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 10px 30px var(--glass-shadow);
-            display: flex; flex-direction: column; justify-content: center;
+            background: var(--glass-bg); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--glass-border); 
+            border-radius: 24px; 
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s; 
+            box-shadow: 0 10px 30px var(--glass-shadow);
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
             position: relative;
             overflow: hidden;
+            min-height: 250px;
         }
-        .glass-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4); }
-        .glass-card h3 { font-family: 'Fredoka', sans-serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--text-highlight); display: flex; align-items: center; gap: 10px; }
+        
+        .glass-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4); 
+        }
+        
+        .glass-card h3 { 
+            font-family: 'Fredoka', sans-serif; 
+            font-size: 1.4rem; 
+            margin-bottom: 15px; 
+            color: var(--text-highlight); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
 
-        .hobby-list { list-style: none; }
-        .hobby-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .hobby-list { 
+            list-style: none; 
+        }
+        
+        .hobby-list li { 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-weight: 500; 
+        }
 
         /* Minecraft Card */
         .minecraft-card { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://assets.codepen.io/13471/minecraft-bg.jpg'); 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop');
             background-size: cover; 
             border: none; 
             border-left: 5px solid #43b581; 
             color: white; 
         }
-        .minecraft-card h3 { color: #55ff55; }
+        
+        .minecraft-card h3 { 
+            color: #55ff55; 
+        }
         
         /* SAO Card */
         .sao-card { 
-            background: linear-gradient(rgba(20, 50, 70, 0.8), rgba(20, 50, 70, 0.8)), url('https://wallpaperaccess.com/full/19632.jpg'); 
+            background: linear-gradient(rgba(20, 50, 70, 0.8), rgba(20, 50, 70, 0.8)), 
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=2068&auto=format&fit=crop');
             background-size: cover; 
             background-position: center; 
             border: none; 
             border-left: 5px solid #00d2d3; 
             color: white; 
         }
-        .sao-card h3 { color: #00d2d3; text-shadow: 0 0 10px #00d2d3; }
-        .sao-ui-text { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); padding: 5px; text-align: center; border-radius: 5px; }
+        
+        .sao-card h3 { 
+            color: #00d2d3; 
+            text-shadow: 0 0 10px #00d2d3; 
+        }
+        
+        .sao-ui-text { 
+            font-family: 'Share Tech Mono', monospace; 
+            font-size: 0.8rem; 
+            opacity: 0.8; 
+            letter-spacing: 1px; 
+            margin-top: 10px; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            padding: 5px; 
+            text-align: center; 
+            border-radius: 5px; 
+        }
 
         /* Hindia Card */
         .hindia-card { 
@@ -282,11 +405,17 @@
             border: none; 
             border-left: 5px solid #e17055; 
         }
-        .hindia-card h3 { color: #e17055; }
         
-        /* ANIME WEBSITE CARD - KARTU BARU */
+        .hindia-card h3 { 
+            color: #e17055; 
+        }
+        
+        /* ANIME WEBSITE CARD */
         .anime-website-card {
-            background: linear-gradient(135deg, rgba(255, 64, 129, 0.85), rgba(63, 81, 181, 0.85)), url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1932&auto=format&fit=crop');
+            background: linear-gradient(135deg, 
+                        rgba(255, 64, 129, 0.85), 
+                        rgba(63, 81, 181, 0.85)),
+                        url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1932&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             border: none;
@@ -303,7 +432,10 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, 
+                      transparent, 
+                      rgba(255, 255, 255, 0.2), 
+                      transparent);
             transition: 0.5s;
         }
         
@@ -387,17 +519,32 @@
             animation: floatIcon 3s infinite ease-in-out;
         }
         
-        .anime-icon:nth-child(1) { animation-delay: 0s; color: #ff4081; }
-        .anime-icon:nth-child(2) { animation-delay: 0.5s; color: #00bcd4; }
-        .anime-icon:nth-child(3) { animation-delay: 1s; color: #4caf50; }
-        .anime-icon:nth-child(4) { animation-delay: 1.5s; color: #ff9800; }
+        .anime-icon:nth-child(1) { 
+            animation-delay: 0s; 
+            color: #ff4081; 
+        }
+        
+        .anime-icon:nth-child(2) { 
+            animation-delay: 0.5s; 
+            color: #00bcd4; 
+        }
+        
+        .anime-icon:nth-child(3) { 
+            animation-delay: 1s; 
+            color: #4caf50; 
+        }
+        
+        .anime-icon:nth-child(4) { 
+            animation-delay: 1.5s; 
+            color: #ff9800; 
+        }
         
         @keyframes floatIcon {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
         
-        /* Floating Anime Characters (CSS Art) */
+        /* Floating Anime Characters */
         .anime-floaters {
             position: absolute;
             width: 100%;
@@ -444,20 +591,97 @@
             100% { transform: translate(0, 0) rotate(360deg); }
         }
         
-        .music-player { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; position: relative; z-index: 2; }
-        .album-art { width: 55px; height: 55px; background: #aaa; border-radius: 50%; background-image: url('https://files.catbox.moe/dxpxgx.jpg'); background-size: cover; border: 2px solid #222; }
-        .album-art.spinning { animation: spin 3s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .song-info { flex-grow: 1; }
-        .song-info div:first-child { font-weight: bold; font-size: 1rem; color: white; }
-        .song-info div:last-child { font-size: 0.75rem; opacity: 0.7; color: #ccc; }
+        /* Music Player */
+        .music-player { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            background: rgba(255,255,255,0.1); 
+            padding: 10px; 
+            border-radius: 15px; 
+            position: relative; 
+            z-index: 2; 
+        }
         
-        .play-btn { width: 40px; height: 40px; background: #e17055; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; color: white; font-size: 14px; }
-        .play-btn:active { transform: scale(0.9); }
-        .progress-container { width:100%; height:4px; background:#555; margin-top:15px; border-radius:2px; position: relative; overflow: hidden; }
-        .progress-bar { width: 0%; height:100%; background:#e17055; transition: width 0.5s; }
-        .progress-bar.active { animation: progressAnim 30s linear infinite; }
-        @keyframes progressAnim { 0% { width: 0%; } 100% { width: 100%; } }
+        .album-art { 
+            width: 55px; 
+            height: 55px; 
+            background: #aaa; 
+            border-radius: 50%; 
+            background-image: url('https://raw.githubusercontent.com/iyannsysu/foto-lah/refs/heads/main/011624a1e9b954d53c975522519fec71.jpg'); 
+            background-size: cover; 
+            border: 2px solid #222; 
+        }
+        
+        .album-art.spinning { 
+            animation: spin 3s linear infinite; 
+        }
+        
+        @keyframes spin { 
+            100% { 
+                transform: rotate(360deg); 
+            } 
+        }
+        
+        .song-info { 
+            flex-grow: 1; 
+        }
+        
+        .song-info div:first-child { 
+            font-weight: bold; 
+            font-size: 1rem; 
+            color: white; 
+        }
+        
+        .song-info div:last-child { 
+            font-size: 0.75rem; 
+            opacity: 0.7; 
+            color: #ccc; 
+        }
+        
+        .play-btn { 
+            width: 40px; 
+            height: 40px; 
+            background: #e17055; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+            color: white; 
+            font-size: 14px; 
+        }
+        
+        .play-btn:active { 
+            transform: scale(0.9); 
+        }
+        
+        .progress-container { 
+            width:100%; 
+            height:4px; 
+            background:#555; 
+            margin-top:15px; 
+            border-radius:2px; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        .progress-bar { 
+            width: 0%; 
+            height:100%; 
+            background:#e17055; 
+            transition: width 0.5s; 
+        }
+        
+        .progress-bar.active { 
+            animation: progressAnim 30s linear infinite; 
+        }
+        
+        @keyframes progressAnim { 
+            0% { width: 0%; } 
+            100% { width: 100%; } 
+        }
 
         /* SOCIAL BUTTONS */
         .social-row { 
@@ -467,39 +691,125 @@
             flex-wrap: wrap; 
             margin-top: 20px;
         }
-        .social-btn { width: 65px; height: 65px; background: rgba(255, 255, 255, 0.85); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 28px; text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .social-btn.fb { color: var(--fb-color); }
-        .social-btn.wa { color: var(--wa-color); }
-        .social-btn.ig { color: var(--ig-color); }
-        .social-btn.tt { color: var(--tt-color); }
-        .social-btn.anime { color: var(--anime-color); }
-        .social-btn:hover { transform: translateY(-10px) scale(1.1); color: white; }
-        .social-btn.fb:hover { background: var(--fb-color); }
-        .social-btn.wa:hover { background: var(--wa-color); }
-        .social-btn.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .social-btn.tt:hover { background: var(--tt-color); }
+        
+        .social-btn { 
+            width: 65px; 
+            height: 65px; 
+            background: rgba(255, 255, 255, 0.85); 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 28px; 
+            text-decoration: none; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        }
+        
+        .social-btn.fb { 
+            color: var(--fb-color); 
+        }
+        
+        .social-btn.wa { 
+            color: var(--wa-color); 
+        }
+        
+        .social-btn.ig { 
+            color: var(--ig-color); 
+        }
+        
+        .social-btn.tt { 
+            color: var(--tt-color); 
+        }
+        
+        .social-btn.anime { 
+            color: var(--anime-color); 
+        }
+        
+        .social-btn:hover { 
+            transform: translateY(-10px) scale(1.1); 
+            color: white; 
+        }
+        
+        .social-btn.fb:hover { 
+            background: var(--fb-color); 
+        }
+        
+        .social-btn.wa:hover { 
+            background: var(--wa-color); 
+        }
+        
+        .social-btn.ig:hover { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+        }
+        
+        .social-btn.tt:hover { 
+            background: var(--tt-color); 
+        }
+        
         .social-btn.anime:hover { 
             background: linear-gradient(45deg, #ff4081, #7b1fa2); 
             color: white;
         }
 
-        /* Responsive */
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* Responsive Design */
         @media (max-width: 1024px) {
-            .cards-grid { grid-template-columns: repeat(2, 1fr); }
-            .card-wide { grid-column: span 2; }
+            .cards-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .card-wide { 
+                grid-column: span 2; 
+            }
         }
         
         @media (max-width: 768px) {
-            .cards-grid { grid-template-columns: 1fr; }
-            .card-wide { grid-column: span 1; }
-            h1 { font-size: 2.8rem; }
-            .link-start-btn { font-size: 2.5rem; }
-            .anime-title { font-size: 1.7rem; }
+            .cards-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .card-wide { 
+                grid-column: span 1; 
+            }
+            h1 { 
+                font-size: 2.8rem; 
+            }
+            .link-start-btn { 
+                font-size: 2.5rem; 
+            }
+            .anime-title { 
+                font-size: 1.7rem; 
+            }
+            .main-wrapper {
+                padding: 10px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
         }
         
         @media (max-width: 480px) {
-            .anime-icons { flex-wrap: wrap; }
-            .social-btn { width: 55px; height: 55px; font-size: 24px; }
+            .anime-icons { 
+                flex-wrap: wrap; 
+            }
+            .social-btn { 
+                width: 55px; 
+                height: 55px; 
+                font-size: 24px; 
+            }
+            .glass-card {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
@@ -508,9 +818,9 @@
     <!-- --- LINK START ANIMATION OVERLAY --- -->
     <div id="intro-overlay">
         <!-- Audio Link Start (Sound Effect) -->
-        <!-- Link ini menuju file MP3 sound effect SAO -->
         <audio id="linkStartAudio">
-            <source src="https://files.catbox.moe/887pao.mp3" type="audio/mp3">
+            <source src="https://github.com/iyannsysu/foto-lah/blob/main/sao-log-in-screen2.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
         </audio>
 
         <!-- White flash layer -->
@@ -520,7 +830,7 @@
         <div class="login-container" id="loginContainer">
             <div class="system-text">NERVEGEAR SYSTEM ONLINE</div>
             <button class="link-start-btn" id="startBtn">LINK START!</button>
-            <div class="system-text" style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">Touch to Login</div>
+            <div class="system-text" style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">Click to Login</div>
         </div>
     </div>
 
@@ -537,7 +847,7 @@
             </div>
             <h1>Satriyan</h1>
             <div class="japanese-name">サトリヤン</div>
-            <div class="tagline">✨ Level 99• Gamer • Creator ✨</div>
+            <div class="tagline">✨ Level 25 • Gamer • Creator ✨</div>
         </header>
 
         <!-- Content Grid -->
@@ -550,6 +860,8 @@
                     <li><i class="fas fa-gamepad" style="color:#ffa502"></i> Gaming</li>
                     <li><i class="fas fa-headphones" style="color:#ff6b81"></i> Music</li>
                     <li><i class="fas fa-pencil-alt" style="color:#7bed9f"></i> Creativity</li>
+                    <li><i class="fas fa-code" style="color:#00d2d3"></i> Coding</li>
+                    <li><i class="fas fa-film" style="color:#ff4081"></i> Anime</li>
                 </ul>
             </div>
 
@@ -559,24 +871,33 @@
                 <h2 style="font-size: 1.8rem; margin-bottom: 5px;">Minecraft</h2>
                 <p style="font-size:0.9rem; opacity:0.9;">"The world is infinite."</p>
                 <div style="margin-top: 15px; font-size: 1.4rem;">
-                    ⛏️ 🌲 ⚔️
+                    ⛏️ 🌲 ⚔️ 🏰 🌙
                 </div>
+                <p style="margin-top: 10px; font-size: 0.8rem;">
+                    Building amazing worlds since 2015
+                </p>
             </div>
 
             <!-- 3. Anime (SAO) -->
             <div class="glass-card sao-card">
                 <h3><i class="fas fa-swords"></i> Favorite Anime</h3>
                 <h2 style="font-size: 1.5rem; margin-bottom: 5px;">Sword Art Online</h2>
-                <p style="font-size:0.9rem; font-style: italic;">"Link Start!"</p>
-                <div class="sao-ui-text">HP: 100% | LVL: 99</div>
+                <p style="font-size:0.9rem; font-style: italic;">"This world is just an illusion..."</p>
+                <div class="sao-ui-text">HP: 100% | LVL: 99 | MP: ∞</div>
+                <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                    <i class="fas fa-shield-alt" style="color: gold;"></i>
+                    <i class="fas fa-fire" style="color: orange;"></i>
+                    <i class="fas fa-bolt" style="color: yellow;"></i>
+                </div>
             </div>
 
             <!-- 4. Music (Hindia) -->
             <div class="glass-card hindia-card">
                 <h3><i class="fas fa-music"></i> On Repeat</h3>
-                <!-- Audio Hindia (Preview) -->
+                <!-- Audio Hindia -->
                 <audio id="mySong">
-                    <source src="https://files.catbox.moe/xqrd91.mp3" type="audio/mp3">
+                    <source src="hindia.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
                 </audio>
                 <div class="music-player">
                     <div class="album-art" id="albumArt"></div>
@@ -584,12 +905,19 @@
                         <div>Mata Air</div>
                         <div>Hindia • Menari dengan Bayangan</div>
                     </div>
-                    <div class="play-btn" id="playIcon"><i class="fas fa-play"></i></div>
+                    <div class="play-btn" id="playIcon">
+                        <i class="fas fa-play"></i>
+                    </div>
                 </div>
-                <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div style="margin-top: 15px; font-size: 0.8rem; opacity: 0.8;">
+                    <i class="fas fa-volume-up"></i> Currently playing
+                </div>
             </div>
 
-            <!-- 5. ANIME WEBSITE CARD (BARU) -->
+            <!-- 5. ANIME WEBSITE CARD -->
             <div class="glass-card anime-website-card card-wide">
                 <!-- Floating Anime Characters -->
                 <div class="anime-floaters">
@@ -615,7 +943,7 @@
                 
                 <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.9; position: relative; z-index: 2;">
                     <i class="fas fa-star" style="color: gold; margin-right: 5px;"></i>
-                    Updated regularly with new recommendations!
+                    Updated regularly with new recommendations and reviews!
                 </div>
             </div>
 
@@ -623,16 +951,32 @@
 
         <!-- Social Buttons -->
         <div class="social-row">
-            <a href="https://www.facebook.com/asuna.iyan" target="_blank" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/6282161429908" target="_blank" class="social-btn wa"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.instagram.com/satriyanei?igsh=MXp0c3podnJoZ3Z5" target="_blank" class="social-btn ig"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@riyanvelty?_r=1&_t=ZS-92jy5toWFUL" target="_blank" class="social-btn tt"><i class="fab fa-tiktok"></i></a>
-            <a href="https://anime-iyan.vercel.app/" target="_blank" class="social-btn anime"><i class="fas fa-external-link-alt"></i></a>
+            <a href="https://www.facebook.com/asuna.iyan" target="_blank" class="social-btn fb">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/6282161429908" target="_blank" class="social-btn wa">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.instagram.com/satriyanei?igsh=MXp0c3podnJoZ3Z5" target="_blank" class="social-btn ig">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@riyanvelty?_r=1&_t=ZS-92jy5toWFUL" target="_blank" class="social-btn tt">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://anime-iyan.vercel.app/" target="_blank" class="social-btn anime">
+                <i class="fas fa-external-link-alt"></i>
+            </a>
         </div>
         
-        <!-- Footer Note -->
-        <div style="margin-top: 30px; color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; text-align: center;">
-            <p>© 2023 Satriyan's Portfolio | Made with <i class="fas fa-heart" style="color: #ff6b81;"></i> and <i class="fas fa-gamepad" style="color: #43b581;"></i></p>
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2023 Satriyan's Portfolio | Made with 
+                <i class="fas fa-heart" style="color: #ff6b81;"></i> and 
+                <i class="fas fa-gamepad" style="color: #43b581;"></i>
+            </p>
+            <p style="margin-top: 5px; font-size: 0.8rem; opacity: 0.7;">
+                Inspired by Sword Art Online • Minecraft • All things creative
+            </p>
         </div>
     </div>
 
@@ -646,15 +990,13 @@
         const loginContainer = document.getElementById('loginContainer');
         const linkSound = document.getElementById('linkStartAudio');
 
-        // Create rings dynamically but don't animate yet
+        // Create rings dynamically
         function createRings() {
-            for(let i=0; i<8; i++){ // Added more rings for deeper effect
+            for(let i = 0; i < 8; i++) {
                 let ring = document.createElement('div');
                 ring.classList.add('intro-ring');
-                // Store index for animation stagger later
                 ring.dataset.index = i;
-                // Randomize size slightly
-                let size = 200 + (i*50) + 'px';
+                let size = 200 + (i * 50) + 'px';
                 ring.style.width = size;
                 ring.style.height = size;
                 overlay.appendChild(ring);
@@ -666,24 +1008,24 @@
         startBtn.addEventListener('click', () => {
             // 1. Play Sound
             linkSound.volume = 1.0;
-            linkSound.play();
+            linkSound.play().catch(e => console.log("Audio play failed:", e));
 
             // 2. Hide Button/Text immediately
             loginContainer.style.opacity = '0';
-            setTimeout(() => { loginContainer.classList.add('hidden'); }, 500);
+            setTimeout(() => { 
+                loginContainer.classList.add('hidden'); 
+            }, 500);
 
-            // 3. Start Tunnel Animation (Sync with sound "whoosh")
-            // The sound usually says "Link Start!" then whooshes around 0.5s
+            // 3. Start Tunnel Animation
             setTimeout(() => {
                 const rings = document.querySelectorAll('.intro-ring');
                 rings.forEach(ring => {
                     ring.classList.add('animate-ring');
-                    // Stagger animation based on index
                     ring.style.animationDelay = (ring.dataset.index * 0.1) + 's';
                 });
             }, 400);
 
-            // 4. White Flash (Sync with sound "climax/snap" around 2.2s)
+            // 4. White Flash
             setTimeout(() => {
                 flash.classList.add('flash-active');
             }, 2200);
@@ -700,13 +1042,12 @@
             }, 4500);
         });
 
-
         // --- 2. MUSIC PLAYER LOGIC (HINDIA) ---
-        var mysong = document.getElementById("mySong");
-        var icon = document.getElementById("playIcon");
-        var album = document.getElementById("albumArt");
-        var bar = document.getElementById("progressBar");
-        var iconInner = icon.querySelector('i');
+        const mysong = document.getElementById("mySong");
+        const icon = document.getElementById("playIcon");
+        const album = document.getElementById("albumArt");
+        const bar = document.getElementById("progressBar");
+        const iconInner = icon.querySelector('i');
 
         icon.onclick = function() {
             if(mysong.paused){
@@ -724,9 +1065,26 @@
             }
         }
 
+        // Update progress bar as song plays
+        mysong.addEventListener('timeupdate', function() {
+            if (!mysong.duration) return;
+            const progressPercent = (mysong.currentTime / mysong.duration) * 100;
+            bar.style.width = progressPercent + '%';
+        });
+
+        // Reset progress bar when song ends
+        mysong.addEventListener('ended', function() {
+            iconInner.classList.remove("fa-pause");
+            iconInner.classList.add("fa-play");
+            album.classList.remove("spinning");
+            bar.classList.remove("active");
+            bar.style.width = '0%';
+        });
+
         // --- 3. SAKURA FALLING PETALS ---
         const layer = document.getElementById('sakuraLayer');
-        const count = 30; 
+        const count = 30;
+        
         function spawnPetal() {
             const petal = document.createElement('div');
             petal.classList.add('petal');
@@ -734,21 +1092,35 @@
             const size = Math.random() * 10 + 10;
             const duration = Math.random() * 5 + 5;
             const delay = Math.random() * 5;
+            
             petal.style.left = left + '%';
             petal.style.width = size + 'px';
             petal.style.height = size + 'px';
             petal.style.animationDuration = duration + 's';
             petal.style.animationDelay = delay + 's';
+            
+            // Random color variation for petals
+            const hue = Math.random() * 20 + 320; // Pink to purple range
+            petal.style.backgroundColor = `hsl(${hue}, 70%, 80%)`;
+            
             layer.appendChild(petal);
-            setTimeout(() => { petal.remove(); spawnPetal(); }, (duration + delay) * 1000);
+            
+            setTimeout(() => { 
+                petal.remove(); 
+                spawnPetal(); 
+            }, (duration + delay) * 1000);
         }
-        for(let i=0; i<count; i++) spawnPetal();
         
+        // Initial spawn
+        for(let i = 0; i < count; i++) {
+            setTimeout(() => spawnPetal(), i * 300);
+        }
+
         // --- 4. ANIME CARD HOVER EFFECT ENHANCEMENT ---
         const animeCard = document.querySelector('.anime-website-card');
+        
         if(animeCard) {
             animeCard.addEventListener('mouseenter', () => {
-                // Tambahkan efek partikel saat hover
                 for(let i = 0; i < 5; i++) {
                     setTimeout(() => {
                         createSparkle(animeCard);
@@ -760,33 +1132,67 @@
         function createSparkle(container) {
             const sparkle = document.createElement('div');
             sparkle.style.position = 'absolute';
-            sparkle.style.width = '10px';
-            sparkle.style.height = '10px';
+            sparkle.style.width = '8px';
+            sparkle.style.height = '8px';
             sparkle.style.background = 'radial-gradient(circle, #fff, #ff4081)';
             sparkle.style.borderRadius = '50%';
             sparkle.style.zIndex = '2';
             sparkle.style.left = Math.random() * 80 + 10 + '%';
             sparkle.style.top = Math.random() * 80 + 10 + '%';
-            sparkle.style.boxShadow = '0 0 10px #ff4081';
+            sparkle.style.boxShadow = '0 0 8px #ff4081';
+            
+            // Add animation via style tag
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes sparkleFade {
+                    0% { transform: scale(0); opacity: 0; }
+                    50% { transform: scale(1); opacity: 1; }
+                    100% { transform: scale(0); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
             sparkle.style.animation = 'sparkleFade 1s ease-out forwards';
             
             container.appendChild(sparkle);
             
             setTimeout(() => {
-                sparkle.remove();
+                if (sparkle.parentNode) {
+                    sparkle.remove();
+                }
             }, 1000);
         }
-        
-        // Tambahkan style untuk animasi sparkle
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes sparkleFade {
-                0% { transform: scale(0); opacity: 0; }
-                50% { transform: scale(1); opacity: 1; }
-                100% { transform: scale(0); opacity: 0; }
+
+        // --- 5. ADDITIONAL EFFECTS ---
+        // Add floating effect to all glass cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'transform 0.3s, box-shadow 0.3s';
+            });
+        });
+
+        // Add click sound to social buttons
+        const socialButtons = document.querySelectorAll('.social-btn');
+        socialButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Optional: Add click sound here
+                console.log('Social button clicked:', button.href);
+            });
+        });
+
+        // Background music autoplay prevention
+        document.addEventListener('click', function() {
+            // This helps with autoplay policies
+            if (mysong.paused) {
+                // Do nothing, let user click play button
             }
-        `;
-        document.head.appendChild(style);
+        });
+
+        // Preload important images
+        window.addEventListener('load', function() {
+            console.log('Portfolio website loaded successfully!');
+        });
     </script>
 </body>
 </html>
