@@ -52,7 +52,8 @@
             align-items: center;
             overflow: hidden;
             flex-direction: column;
-            perspective: 1000px; /* For 3D effect */
+            perspective: 1000px;
+            cursor: default;
         }
 
         /* The glowing tunnel rings */
@@ -66,9 +67,10 @@
             opacity: 0;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0.1);
+            pointer-events: none;
         }
 
-        /* Animation for rings */
+        /* Animation for rings - Triggered by JS */
         .animate-ring {
             animation: ringZoom 2.5s ease-in infinite;
         }
@@ -79,57 +81,78 @@
             100% { transform: translate(-50%, -50%) scale(4) rotate(180deg); opacity: 0; }
         }
 
-        /* System Text */
+        /* Interaction Layer */
+        .login-container {
+            z-index: 10001;
+            text-align: center;
+            transition: opacity 0.5s;
+        }
+
         .system-text {
             color: #fff;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px #00d2d3;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: textFade 0.5s forwards 0.5s;
+            font-size: 1rem;
+            text-shadow: 0 0 5px #00d2d3;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
         }
 
-        /* LINK START Big Text */
-        .link-start-title {
+        /* LINK START BUTTON */
+        .link-start-btn {
+            background: none;
+            border: none;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: bold;
             color: white;
-            text-shadow: 0 0 20px cyan, 0 0 40px blue;
-            letter-spacing: 5px;
-            transform: scale(0);
-            animation: zoomText 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.5s;
+            text-shadow: 0 0 10px cyan, 0 0 20px blue;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, text-shadow 0.2s;
+            animation: pulseText 2s infinite;
         }
 
-        @keyframes textFade { to { opacity: 1; } }
-        @keyframes zoomText { to { transform: scale(1); } }
+        .link-start-btn:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 20px cyan, 0 0 40px blue, 0 0 60px white;
+        }
 
-        /* The Flash Bang at the end */
+        .link-start-btn:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* The Flash Bang */
         .white-flash {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: white;
             opacity: 0;
             pointer-events: none;
-            z-index: 10000;
+            z-index: 10002;
         }
         
         .flash-active {
-            animation: flashBang 1.5s ease-out forwards;
+            animation: flashBang 2s ease-out forwards;
         }
 
         @keyframes flashBang {
             0% { opacity: 0; }
-            30% { opacity: 1; }
+            40% { opacity: 1; } /* Flash peaks at sync point */
             100% { opacity: 0; }
         }
 
         .fade-out-overlay {
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.5s ease;
             pointer-events: none;
         }
+
+        .hidden { display: none; }
 
         /* --- END INTRO CSS --- */
 
@@ -166,15 +189,14 @@
             margin-top: 40px;
             margin-bottom: 40px;
             padding: 20px;
-            opacity: 0; /* Hidden initially */
-            transform: translateY(20px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            opacity: 0; 
+            transform: scale(0.95);
+            transition: opacity 2s ease, transform 2s ease;
         }
         
-        /* Class to show content after intro */
         .content-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
         @keyframes floatPage {
@@ -183,250 +205,76 @@
         }
 
         /* HEADER */
-        .profile-header {
-            margin-bottom: 30px;
-        }
+        .profile-header { margin-bottom: 30px; }
 
         .avatar-container {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 15px;
-            position: relative;
+            width: 160px; height: 160px; margin: 0 auto 15px; position: relative;
         }
-
         .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
             border: 5px solid rgba(255,255,255,0.9);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             background-image: url('https://files.catbox.moe/l0dd2k.jpg');
-            background-color: white;
-            background-size: cover;
+            background-color: white; background-size: cover;
             transition: transform 0.4s;
         }
-
         .avatar:hover { transform: scale(1.1) rotate(5deg); }
 
-        h1 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 3.5rem;
-            margin-bottom: 5px;
-            color: #fff;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .japanese-name {
-            font-size: 1.2rem;
-            color: #fff;
-            letter-spacing: 6px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-        }
-
-        .tagline {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 8px 25px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            color: var(--text-highlight);
-            font-weight: 700;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+        h1 { font-family: 'Fredoka', sans-serif; font-size: 3.5rem; margin-bottom: 5px; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+        .japanese-name { font-size: 1.2rem; color: #fff; letter-spacing: 6px; margin-bottom: 15px; font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
+        .tagline { display: inline-block; background: rgba(255, 255, 255, 0.8); padding: 8px 25px; border-radius: 50px; font-size: 0.95rem; color: var(--text-highlight); font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
         /* GRID CARDS */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 40px;
-            text-align: left;
-        }
+        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px; text-align: left; }
 
-        /* Common Glass Card Style */
         .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 30px var(--glass-shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--glass-border); border-radius: 24px; padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 10px 30px var(--glass-shadow);
+            display: flex; flex-direction: column; justify-content: center;
         }
+        .glass-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4); }
+        .glass-card h3 { font-family: 'Fredoka', sans-serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--text-highlight); display: flex; align-items: center; gap: 10px; }
 
-        .glass-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
-        }
+        .hobby-list { list-style: none; }
+        .hobby-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-weight: 500; }
 
-        .glass-card h3 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--text-highlight);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .hobby-list {
-            list-style: none;
-        }
-        .hobby-list li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-
-        /* --- SPECIAL CARDS --- */
-
-        /* 1. Minecraft Card */
-        .minecraft-card {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://assets.codepen.io/13471/minecraft-bg.jpg');
-            background-size: cover;
-            border: none;
-            border-left: 5px solid #43b581;
-            color: white;
-        }
+        /* Minecraft Card */
+        .minecraft-card { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://assets.codepen.io/13471/minecraft-bg.jpg'); background-size: cover; border: none; border-left: 5px solid #43b581; color: white; }
         .minecraft-card h3 { color: #55ff55; }
         
-        /* 2. SAO Anime Card */
-        .sao-card {
-            background: linear-gradient(rgba(20, 50, 70, 0.8), rgba(20, 50, 70, 0.8)), url('https://wallpaperaccess.com/full/19632.jpg'); 
-            background-size: cover;
-            background-position: center;
-            border: none;
-            border-left: 5px solid #00d2d3; 
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
+        /* SAO Card */
+        .sao-card { background: linear-gradient(rgba(20, 50, 70, 0.8), rgba(20, 50, 70, 0.8)), url('https://wallpaperaccess.com/full/19632.jpg'); background-size: cover; background-position: center; border: none; border-left: 5px solid #00d2d3; color: white; position: relative; overflow: hidden; }
         .sao-card h3 { color: #00d2d3; text-shadow: 0 0 10px #00d2d3; }
-        
-        .sao-ui-text {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            letter-spacing: 1px;
-            margin-top: 10px;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 5px;
-            text-align: center;
-            border-radius: 5px;
-        }
+        .sao-ui-text { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); padding: 5px; text-align: center; border-radius: 5px; }
 
-        /* 3. Hindia Music Card */
-        .hindia-card {
-            background: linear-gradient(to right bottom, #2d3436, #000000);
-            color: white;
-            border: none;
-            border-left: 5px solid #e17055;
-            position: relative;
-            overflow: hidden;
-        }
+        /* Hindia Card */
+        .hindia-card { background: linear-gradient(to right bottom, #2d3436, #000000); color: white; border: none; border-left: 5px solid #e17055; position: relative; overflow: hidden; }
         .hindia-card h3 { color: #e17055; }
         
-        .music-player {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .album-art {
-            width: 55px;
-            height: 55px;
-            background: #aaa;
-            border-radius: 50%;
-            background-image: url('https://files.catbox.moe/dxpxgx.jpg'); /* Cover Mata Air */
-            background-size: cover;
-            border: 2px solid #222;
-        }
-        
-        .album-art.spinning {
-            animation: spin 3s linear infinite;
-        }
+        .music-player { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; position: relative; z-index: 2; }
+        .album-art { width: 55px; height: 55px; background: #aaa; border-radius: 50%; background-image: url('https://files.catbox.moe/dxpxgx.jpg'); background-size: cover; border: 2px solid #222; }
+        .album-art.spinning { animation: spin 3s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
         .song-info { flex-grow: 1; }
         .song-info div:first-child { font-weight: bold; font-size: 1rem; color: white; }
         .song-info div:last-child { font-size: 0.75rem; opacity: 0.7; color: #ccc; }
-
-        .play-btn {
-            width: 40px;
-            height: 40px;
-            background: #e17055;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.2s;
-            color: white;
-            font-size: 14px;
-        }
+        
+        .play-btn { width: 40px; height: 40px; background: #e17055; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; color: white; font-size: 14px; }
         .play-btn:active { transform: scale(0.9); }
-
-        .progress-container {
-            width:100%; height:4px; background:#555; margin-top:15px; border-radius:2px;
-            position: relative; overflow: hidden;
-        }
-        .progress-bar {
-            width: 0%; height:100%; background:#e17055;
-            transition: width 0.5s;
-        }
-        .progress-bar.active {
-            animation: progressAnim 30s linear infinite;
-        }
-        @keyframes progressAnim {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
+        .progress-container { width:100%; height:4px; background:#555; margin-top:15px; border-radius:2px; position: relative; overflow: hidden; }
+        .progress-bar { width: 0%; height:100%; background:#e17055; transition: width 0.5s; }
+        .progress-bar.active { animation: progressAnim 30s linear infinite; }
+        @keyframes progressAnim { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* SOCIAL BUTTONS */
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        .social-btn {
-            width: 65px;
-            height: 65px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
+        .social-row { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+        .social-btn { width: 65px; height: 65px; background: rgba(255, 255, 255, 0.85); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 28px; text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .social-btn.fb { color: var(--fb-color); }
         .social-btn.wa { color: var(--wa-color); }
         .social-btn.ig { color: var(--ig-color); }
         .social-btn.tt { color: var(--tt-color); }
-
-        .social-btn:hover {
-            transform: translateY(-10px) scale(1.1);
-            color: white;
-        }
+        .social-btn:hover { transform: translateY(-10px) scale(1.1); color: white; }
         .social-btn.fb:hover { background: var(--fb-color); }
         .social-btn.wa:hover { background: var(--wa-color); }
         .social-btn.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -436,7 +284,7 @@
         @media (max-width: 768px) {
             .cards-grid { grid-template-columns: 1fr; }
             h1 { font-size: 2.8rem; }
-            .link-start-title { font-size: 2.5rem; }
+            .link-start-btn { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -444,12 +292,21 @@
 
     <!-- --- LINK START ANIMATION OVERLAY --- -->
     <div id="intro-overlay">
+        <!-- Audio Link Start (Sound Effect) -->
+        <!-- Link ini menuju file MP3 sound effect SAO -->
+        <audio id="linkStartAudio">
+            <source src="https://files.catbox.moe/887pao.mp3" type="audio/mp3">
+        </audio>
+
         <!-- White flash layer -->
         <div class="white-flash" id="whiteFlash"></div>
         
-        <!-- Rings will be generated here -->
-        <div class="system-text">SYSTEM INITIALIZING...</div>
-        <div class="link-start-title">LINK START!</div>
+        <!-- Login Interaction -->
+        <div class="login-container" id="loginContainer">
+            <div class="system-text">NERVEGEAR SYSTEM ONLINE</div>
+            <button class="link-start-btn" id="startBtn">LINK START!</button>
+            <div class="system-text" style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">Touch to Login</div>
+        </div>
     </div>
 
     <!-- Falling Petals -->
@@ -496,37 +353,25 @@
                 <h3><i class="fas fa-swords"></i> Favorite Anime</h3>
                 <h2 style="font-size: 1.5rem; margin-bottom: 5px;">Sword Art Online</h2>
                 <p style="font-size:0.9rem; font-style: italic;">"Link Start!"</p>
-                
-                <div class="sao-ui-text">
-                     HP: 100% | LVL: 99
-                </div>
+                <div class="sao-ui-text">HP: 100% | LVL: 99</div>
             </div>
 
-            <!-- 4. Music (Hindia - Mata Air) -->
+            <!-- 4. Music (Hindia) -->
             <div class="glass-card hindia-card">
                 <h3><i class="fas fa-music"></i> On Repeat</h3>
-                
-                <!-- AUDIO SOURCE -->
+                <!-- Audio Hindia (Preview) -->
                 <audio id="mySong">
                     <source src="https://files.catbox.moe/xqrd91.mp3" type="audio/mp3">
                 </audio>
-
                 <div class="music-player">
                     <div class="album-art" id="albumArt"></div>
                     <div class="song-info">
                         <div>Mata Air</div>
-                        <div>Hindia • mata Air</div>
+                        <div>Hindia • Menari dengan Bayangan</div>
                     </div>
-                    <!-- Play Button -->
-                    <div class="play-btn" id="playIcon">
-                        <i class="fas fa-play"></i>
-                    </div>
+                    <div class="play-btn" id="playIcon"><i class="fas fa-play"></i></div>
                 </div>
-                
-                <!-- Progress Bar -->
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
+                <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
             </div>
 
         </div>
@@ -538,57 +383,74 @@
             <a href="https://www.instagram.com/satriyanei?igsh=MXp0c3podnJoZ3Z5" target="_blank" class="social-btn ig"><i class="fab fa-instagram"></i></a>
             <a href="https://www.tiktok.com/@riyanvelty?_r=1&_t=ZS-92jy5toWFUL" target="_blank" class="social-btn tt"><i class="fab fa-tiktok"></i></a>
         </div>
-
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        // --- 1. INTRO ANIMATION SCRIPT ---
+        // --- 1. LINK START INTERACTION LOGIC ---
         const overlay = document.getElementById('intro-overlay');
         const flash = document.getElementById('whiteFlash');
         const mainContent = document.getElementById('mainContent');
+        const startBtn = document.getElementById('startBtn');
+        const loginContainer = document.getElementById('loginContainer');
+        const linkSound = document.getElementById('linkStartAudio');
 
+        // Create rings dynamically but don't animate yet
         function createRings() {
-            // Create 5 rings dynamically
-            for(let i=0; i<5; i++){
+            for(let i=0; i<8; i++){ // Added more rings for deeper effect
                 let ring = document.createElement('div');
                 ring.classList.add('intro-ring');
-                ring.classList.add('animate-ring');
-                // Stagger delay for tunnel effect
-                ring.style.animationDelay = (i * 0.2) + 's';
-                // Random width/height slightly
+                // Store index for animation stagger later
+                ring.dataset.index = i;
+                // Randomize size slightly
                 let size = 200 + (i*50) + 'px';
                 ring.style.width = size;
                 ring.style.height = size;
                 overlay.appendChild(ring);
             }
         }
+        createRings();
 
-        window.addEventListener('load', () => {
-            createRings();
+        // CLICK EVENT
+        startBtn.addEventListener('click', () => {
+            // 1. Play Sound
+            linkSound.volume = 1.0;
+            linkSound.play();
 
-            // Sequence:
-            // 0s: Start (Black screen, Text appears)
-            // 0s-2.5s: Tunnel Effect
-            // 2.5s: White Flash
-            // 3.5s: Remove Overlay, Show Main Content
+            // 2. Hide Button/Text immediately
+            loginContainer.style.opacity = '0';
+            setTimeout(() => { loginContainer.classList.add('hidden'); }, 500);
 
+            // 3. Start Tunnel Animation (Sync with sound "whoosh")
+            // The sound usually says "Link Start!" then whooshes around 0.5s
             setTimeout(() => {
-                flash.classList.add('flash-active'); // Trigger white flash
-            }, 2500);
+                const rings = document.querySelectorAll('.intro-ring');
+                rings.forEach(ring => {
+                    ring.classList.add('animate-ring');
+                    // Stagger animation based on index
+                    ring.style.animationDelay = (ring.dataset.index * 0.1) + 's';
+                });
+            }, 400);
 
+            // 4. White Flash (Sync with sound "climax/snap" around 2.2s)
             setTimeout(() => {
-                overlay.classList.add('fade-out-overlay'); // Fade out black screen
-                mainContent.classList.add('content-visible'); // Show website
+                flash.classList.add('flash-active');
+            }, 2200);
+
+            // 5. Reveal Website
+            setTimeout(() => {
+                overlay.classList.add('fade-out-overlay');
+                mainContent.classList.add('content-visible');
             }, 3000);
 
+            // 6. Cleanup Overlay from DOM
             setTimeout(() => {
-                overlay.style.display = 'none'; // Remove from DOM completely
-            }, 4000);
+                overlay.style.display = 'none';
+            }, 4500);
         });
 
 
-        // --- 2. MUSIC PLAYER LOGIC ---
+        // --- 2. MUSIC PLAYER LOGIC (HINDIA) ---
         var mysong = document.getElementById("mySong");
         var icon = document.getElementById("playIcon");
         var album = document.getElementById("albumArt");
