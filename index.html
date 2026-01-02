@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satriyan | Portfolio</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Outfit:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Theme Variables */
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: rgba(255, 182, 193, 0.3);
+            --text-main: #4a4a4a;
+            --text-highlight: #ff6b81; 
+            
+            --fb-color: #1877F2;
+            --wa-color: #25D366;
+            --ig-color: #C13584;
+            --tt-color: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            overflow-x: hidden;
+            
+            /* SAKURA BACKGROUND */
+            background: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* --- SAO LINK START ANIMATION CSS --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+            perspective: 1000px; /* For 3D effect */
+        }
+
+        /* The glowing tunnel rings */
+        .intro-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top: 4px solid #00d2d3;
+            border-bottom: 4px solid #0984e3;
+            box-shadow: 0 0 20px #00d2d3, inset 0 0 20px #00d2d3;
+            opacity: 0;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+        }
+
+        /* Animation for rings */
+        .animate-ring {
+            animation: ringZoom 2.5s ease-in infinite;
+        }
+
+        @keyframes ringZoom {
+            0% { transform: translate(-50%, -50%) scale(0.1) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(4) rotate(180deg); opacity: 0; }
+        }
+
+        /* System Text */
+        .system-text {
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #00d2d3;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: textFade 0.5s forwards 0.5s;
+        }
+
+        /* LINK START Big Text */
+        .link-start-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 20px cyan, 0 0 40px blue;
+            letter-spacing: 5px;
+            transform: scale(0);
+            animation: zoomText 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.5s;
+        }
+
+        @keyframes textFade { to { opacity: 1; } }
+        @keyframes zoomText { to { transform: scale(1); } }
+
+        /* The Flash Bang at the end */
+        .white-flash {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        
+        .flash-active {
+            animation: flashBang 1.5s ease-out forwards;
+        }
+
+        @keyframes flashBang {
+            0% { opacity: 0; }
+            30% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .fade-out-overlay {
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        /* --- END INTRO CSS --- */
+
+
+        /* SAKURA PETAL ANIMATION LAYER */
+        .sakura-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            background: #ffc1e3;
+            border-radius: 150% 0 150% 0;
+            animation: fall infinite linear;
+            opacity: 0.9;
+            box-shadow: 0 0 5px rgba(255, 182, 193, 0.5);
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* MAIN WRAPPER */
+        .main-wrapper {
+            width: 100%;
+            max-width: 900px;
+            z-index: 10;
+            text-align: center;
+            animation: floatPage 5s ease-in-out infinite;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            padding: 20px;
+            opacity: 0; /* Hidden initially */
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+        
+        /* Class to show content after intro */
+        .content-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes floatPage {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* HEADER */
+        .profile-header {
+            margin-bottom: 30px;
+        }
+
+        .avatar-container {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255,255,255,0.9);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            background-image: url('https://api.dicebear.com/9.x/micah/svg?seed=Satriyan&baseColor=f9c9b6&hair=d6b5fa');
+            background-color: white;
+            background-size: cover;
+            transition: transform 0.4s;
+        }
+
+        .avatar:hover { transform: scale(1.1) rotate(5deg); }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .japanese-name {
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            color: var(--text-highlight);
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* GRID CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        /* Common Glass Card Style */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+        }
+
+        .glass-card h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-highlight);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hobby-list {
+            list-style: none;
+        }
+        .hobby-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        /* --- SPECIAL CARDS --- */
+
+        /* 1. Minecraft Card */
+        .minecraft-card {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://assets.codepen.io/13471/minecraft-bg.jpg');
+            background-size: cover;
+            border: none;
+            border-left: 5px solid #43b581;
+            color: white;
+        }
+        .minecraft-card h3 { color: #55ff55; }
+        
+        /* 2. SAO Anime Card */
+        .sao-card {
+            background: linear-gradient(rgba(20, 50, 70, 0.8), rgba(20, 50, 70, 0.8)), url('https://wallpaperaccess.com/full/19632.jpg'); 
+            background-size: cover;
+            background-position: center;
+            border: none;
+            border-left: 5px solid #00d2d3; 
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .sao-card h3 { color: #00d2d3; text-shadow: 0 0 10px #00d2d3; }
+        
+        .sao-ui-text {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        /* 3. Hindia Music Card */
+        .hindia-card {
+            background: linear-gradient(to right bottom, #2d3436, #000000);
+            color: white;
+            border: none;
+            border-left: 5px solid #e17055;
+            position: relative;
+            overflow: hidden;
+        }
+        .hindia-card h3 { color: #e17055; }
+        
+        .music-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .album-art {
+            width: 55px;
+            height: 55px;
+            background: #aaa;
+            border-radius: 50%;
+            background-image: url('https://i.scdn.co/image/ab67616d0000b27330a6142c6762dc84be5e38cb'); /* Cover Mata Air */
+            background-size: cover;
+            border: 2px solid #222;
+        }
+        
+        .album-art.spinning {
+            animation: spin 3s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .song-info { flex-grow: 1; }
+        .song-info div:first-child { font-weight: bold; font-size: 1rem; color: white; }
+        .song-info div:last-child { font-size: 0.75rem; opacity: 0.7; color: #ccc; }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: #e17055;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            color: white;
+            font-size: 14px;
+        }
+        .play-btn:active { transform: scale(0.9); }
+
+        .progress-container {
+            width:100%; height:4px; background:#555; margin-top:15px; border-radius:2px;
+            position: relative; overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%; height:100%; background:#e17055;
+            transition: width 0.5s;
+        }
+        .progress-bar.active {
+            animation: progressAnim 30s linear infinite;
+        }
+        @keyframes progressAnim {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* SOCIAL BUTTONS */
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            width: 65px;
+            height: 65px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .social-btn.fb { color: var(--fb-color); }
+        .social-btn.wa { color: var(--wa-color); }
+        .social-btn.ig { color: var(--ig-color); }
+        .social-btn.tt { color: var(--tt-color); }
+
+        .social-btn:hover {
+            transform: translateY(-10px) scale(1.1);
+            color: white;
+        }
+        .social-btn.fb:hover { background: var(--fb-color); }
+        .social-btn.wa:hover { background: var(--wa-color); }
+        .social-btn.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-btn.tt:hover { background: var(--tt-color); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.8rem; }
+            .link-start-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- LINK START ANIMATION OVERLAY --- -->
+    <div id="intro-overlay">
+        <!-- White flash layer -->
+        <div class="white-flash" id="whiteFlash"></div>
+        
+        <!-- Rings will be generated here -->
+        <div class="system-text">SYSTEM INITIALIZING...</div>
+        <div class="link-start-title">LINK START!</div>
+    </div>
+
+    <!-- Falling Petals -->
+    <div class="sakura-layer" id="sakuraLayer"></div>
+
+    <!-- MAIN CONTENT (Hidden initially) -->
+    <div class="main-wrapper" id="mainContent">
+        
+        <!-- Header -->
+        <header class="profile-header">
+            <div class="avatar-container">
+                <div class="avatar"></div>
+            </div>
+            <h1>Satriyan</h1>
+            <div class="japanese-name">サトリヤン</div>
+            <div class="tagline">✨ Level 25 • Gamer • Creator ✨</div>
+        </header>
+
+        <!-- Content Grid -->
+        <div class="cards-grid">
+            
+            <!-- 1. Hobbies -->
+            <div class="glass-card">
+                <h3><i class="fas fa-user-astronaut"></i> General Stats</h3>
+                <ul class="hobby-list">
+                    <li><i class="fas fa-gamepad" style="color:#ffa502"></i> Gaming</li>
+                    <li><i class="fas fa-headphones" style="color:#ff6b81"></i> Music</li>
+                    <li><i class="fas fa-pencil-alt" style="color:#7bed9f"></i> Creativity</li>
+                </ul>
+            </div>
+
+            <!-- 2. Minecraft -->
+            <div class="glass-card minecraft-card">
+                <h3><i class="fas fa-cube"></i> Top Game</h3>
+                <h2 style="font-size: 1.8rem; margin-bottom: 5px;">Minecraft</h2>
+                <p style="font-size:0.9rem; opacity:0.9;">"The world is infinite."</p>
+                <div style="margin-top: 15px; font-size: 1.4rem;">
+                    ⛏️ 🌲 ⚔️
+                </div>
+            </div>
+
+            <!-- 3. Anime (SAO) -->
+            <div class="glass-card sao-card">
+                <h3><i class="fas fa-swords"></i> Favorite Anime</h3>
+                <h2 style="font-size: 1.5rem; margin-bottom: 5px;">Sword Art Online</h2>
+                <p style="font-size:0.9rem; font-style: italic;">"Link Start!"</p>
+                
+                <div class="sao-ui-text">
+                     HP: 100% | LVL: 99
+                </div>
+            </div>
+
+            <!-- 4. Music (Hindia - Mata Air) -->
+            <div class="glass-card hindia-card">
+                <h3><i class="fas fa-music"></i> On Repeat</h3>
+                
+                <!-- AUDIO SOURCE -->
+                <audio id="mySong">
+                    <source src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/05/e7/87/05e7878d-1725-3438-e6ca-d66f46995662/mzaf_11370889228802970678.plus.aac.p.m4a" type="audio/mp3">
+                </audio>
+
+                <div class="music-player">
+                    <div class="album-art" id="albumArt"></div>
+                    <div class="song-info">
+                        <div>Mata Air</div>
+                        <div>Hindia • Menari dengan Bayangan</div>
+                    </div>
+                    <!-- Play Button -->
+                    <div class="play-btn" id="playIcon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Social Buttons -->
+        <div class="social-row">
+            <a href="https://www.facebook.com/asuna.iyan" target="_blank" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/6282161429908" target="_blank" class="social-btn wa"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/satriyanei?igsh=MXp0c3podnJoZ3Z5" target="_blank" class="social-btn ig"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@riyanvelty?_r=1&_t=ZS-92jy5toWFUL" target="_blank" class="social-btn tt"><i class="fab fa-tiktok"></i></a>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- 1. INTRO ANIMATION SCRIPT ---
+        const overlay = document.getElementById('intro-overlay');
+        const flash = document.getElementById('whiteFlash');
+        const mainContent = document.getElementById('mainContent');
+
+        function createRings() {
+            // Create 5 rings dynamically
+            for(let i=0; i<5; i++){
+                let ring = document.createElement('div');
+                ring.classList.add('intro-ring');
+                ring.classList.add('animate-ring');
+                // Stagger delay for tunnel effect
+                ring.style.animationDelay = (i * 0.2) + 's';
+                // Random width/height slightly
+                let size = 200 + (i*50) + 'px';
+                ring.style.width = size;
+                ring.style.height = size;
+                overlay.appendChild(ring);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            createRings();
+
+            // Sequence:
+            // 0s: Start (Black screen, Text appears)
+            // 0s-2.5s: Tunnel Effect
+            // 2.5s: White Flash
+            // 3.5s: Remove Overlay, Show Main Content
+
+            setTimeout(() => {
+                flash.classList.add('flash-active'); // Trigger white flash
+            }, 2500);
+
+            setTimeout(() => {
+                overlay.classList.add('fade-out-overlay'); // Fade out black screen
+                mainContent.classList.add('content-visible'); // Show website
+            }, 3000);
+
+            setTimeout(() => {
+                overlay.style.display = 'none'; // Remove from DOM completely
+            }, 4000);
+        });
+
+
+        // --- 2. MUSIC PLAYER LOGIC ---
+        var mysong = document.getElementById("mySong");
+        var icon = document.getElementById("playIcon");
+        var album = document.getElementById("albumArt");
+        var bar = document.getElementById("progressBar");
+        var iconInner = icon.querySelector('i');
+
+        icon.onclick = function() {
+            if(mysong.paused){
+                mysong.play();
+                iconInner.classList.remove("fa-play");
+                iconInner.classList.add("fa-pause");
+                album.classList.add("spinning"); 
+                bar.classList.add("active"); 
+            } else {
+                mysong.pause();
+                iconInner.classList.remove("fa-pause");
+                iconInner.classList.add("fa-play");
+                album.classList.remove("spinning");
+                bar.classList.remove("active"); 
+            }
+        }
+
+        // --- 3. SAKURA FALLING PETALS ---
+        const layer = document.getElementById('sakuraLayer');
+        const count = 30; 
+        function spawnPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            const left = Math.random() * 100;
+            const size = Math.random() * 10 + 10;
+            const duration = Math.random() * 5 + 5;
+            const delay = Math.random() * 5;
+            petal.style.left = left + '%';
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.animationDuration = duration + 's';
+            petal.style.animationDelay = delay + 's';
+            layer.appendChild(petal);
+            setTimeout(() => { petal.remove(); spawnPetal(); }, (duration + delay) * 1000);
+        }
+        for(let i=0; i<count; i++) spawnPetal();
+    </script>
+</body>
+</html>
